@@ -1,0 +1,11 @@
+Package: L15LUtils
+Type: Package
+Depends: glmnet, Hmisc, maptools, ggplot2
+Title: Funciones auxiliares para el analisis de datos
+Version: 1.1
+Date: 2011-04-26
+Author: LasQuinceLetras staff
+Maintainer: Felipe Gonzalez, Teresa Ortiz, David Alvarez, Michelle Anzarut, Juan Jose Cervantes, Sonia Mendizabal, Cid Reyes to <felipe.gonzales@lasquinceletras.com.mx>  
+Description: Compendio de funciones y métodos surgidos durante el análisis de datos dentro de LasQuinceLetras, útiles para lidiar con bases de datos derivadas de encuestas, producir análisis y crear modelos.
+License: GPL
+LazyLoad: yes

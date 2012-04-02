@@ -1,0 +1,527 @@
+load("/Volumes/Groups/workgroup/Clientes/2011/Nestle/CallCenter/Analisis/0118/salidas/base_clas_entrega.Rdata")
+?grep
+vec <- c("hola, estamos aqui", "adios, bye", "vamos a comer")
+vec
+grep(",",vec)
+indices <- grep(",",base.clas.entrega$Verbatim)
+indices
+length(indices)
+base.clas.entrega[indices[7894],]
+base.clas.entrega[118077,]
+indices <- gsub(","," ",base.clas.entrega$Verbatim)
+indices
+indices[60]
+base.clas.entrega$Verbatim[60]
+clas.entregas$Verbatim <- gsub(","," ",base.clas.entrega$Verbatim)
+base.clas.entregas$Verbatim <- gsub(","," ",base.clas.entrega$Verbatim)
+base.clas.entrega$Verbatim <- gsub(","," ",base.clas.entrega$Verbatim)
+?write.table
+?'
+ç
+30
+lñkjklñ
+)
+()
+?write.table
+quit
+quit()
+class("´fdsipd")
+?read.table
+?write.csv
+?read.table
+?write.table
+install.packages("msm")
+?msm
+library(msm)
+?msm
+ls()
+data(heart)
+library(msm)
+data(heart)
+ls
+data("heart")
+data(heart)
+data(Heart)
+data(heart)
+ls
+install.packages("msm")
+library(msm)
+data(heart)
+data(cab)
+data(cav)
+ls()
+head(cav)
+?msm
+print(cav[1:10,])
+description(cav)
+twoway4.q <- rbind(c(-0.5, 0.25, 0, 0.25), c(0.166, -0.498, 0.166, 0.166),#
+c(0, 0.25, -0.5, 0.25), c(0, 0, 0, 0))
+twoway4.q
+statetable.msm(state, PTNUM, data=cav)
+crudeinits.msm(state ~ years, PTNUM, +	qmatrix = twoway4.q)
+crudeinits.msm(state ~ years, PTNUM, data=cav, qmatrix=twoway4.q)#
+cav.msm <- msm( state ~ years, subject=PTNUM, data = cav, #
+                 qmatrix = twoway4.q, death = 4,#
+                 control = list ( trace = 2, REPORT = 1 )  )
+cav.msm
+qmatrix.msm(cav.msm)#
+pmatrix.msm(cav.msm, t=10)#
+sojourn.msm(cav.msm)
+setwd('/Volumes/Groups/workgroup/Clientes/2011/Nestle/Nestle Calls/Analisis/ana1/lacteos')
+library(ggplot2)#
+library(tm)      #
+library(Rstem) #Instalar manualmente desde source ver 4.0 #
+library(stringr)#
+library(glmnet)#
+library(randomForest)#
+library(ROCR)#
+library(mda)#
+library(car)#
+source("../../Scripts/validacion_cruzada.R")#
+Sys.setlocale('LC_ALL','es_ES')#
+#
+# ==========#
+# = Banner =#
+# ==========#
+coment <- read.table("../../../Datos/Datos Anteriores/Lacteos_Cuat_1.csv", #
+					sep = "|",  header = TRUE, encoding = "UTF-8")#
+coment.2 <- read.table("../../../Datos/Datos Anteriores/Lacteos_Cuat_2.csv", #
+				sep = "|", header = TRUE, encoding = "UTF-8")#
+coment.3 <- read.table("../../../Datos/Datos Anteriores/Lacteos_Cuat_3.csv", #
+						sep = "|", header = TRUE, encoding = "UTF-8")#
+#
+coment.0 <- rbind(coment, coment.2)#
+coment.b <- coment.0[!is.na(coment.0$Prioridad), ]#
+#
+coment.3 <- coment.3[!is.na(coment.3$Prioridad), ]#
+#
+comentarios <- paste(coment.b$Verbatim, coment.b$Género, #
+    coment.b$Tipo.De.Contacto, #
+    coment.b$Producto, #
+    coment.b$Calificación.del.contacto., sep = " ")#
+comentarios.3 <- paste(coment.3$Verbatim, coment.3$Género, #
+        coment.3$Tipo.De.Contacto, #
+        coment.3$Producto, #
+        coment.3$Calificación.del.contacto., sep = " ")#
+# Formar corpus, quitar espacio, bajas y lematización#
+#
+mis_stops <- as.character(read.table("../mis_stops.txt")[,1])#
+#
+miCorpus <- function(comentario){#
+		#
+    corp_com <- Corpus(VectorSource(comentario), #
+        readerControl = list(language = "spa"))  #
+    summary(corp_com)#
+    corp_com <- tm_map(corp_com, stripWhitespace)#
+    corp_com <- tm_map(corp_com,tolower) #
+    corp_com_sw <- tm_map(corp_com, removeWords, mis_stops)     #
+    corp_com_sw <- tm_map(corp_com_sw, stripWhitespace)#
+    corp2<- tm_map(corp_com_sw, function(x) {#
+	    y <- str_replace_all(x,"\\?+"," PREGUNTA")     #
+	    y <- str_replace_all(y,"¿"," ") #
+	    y <- str_replace_all(y,"\\("," ")#
+	    y <- str_replace_all(y,"\\)"," ")#
+	    y <- str_replace_all(y,"\\."," ")#
+	    y <- str_replace_all(y,"\\,"," ")#
+	    y <- str_replace_all(y,"\\:+"," ")#
+	    y <- str_replace_all(y,"-","")#
+	    y <- str_replace_all(y,"¡"," ")#
+	    y <- str_replace_all(y,"!"," ")#
+	    y <- str_replace_all(y, "á","a")#
+	    y <- str_replace_all(y, "é","e")#
+	    y <- str_replace_all(y, "í","i")#
+	    y <- str_replace_all(y, "ó","o")#
+	    y <- str_replace_all(y, "ú","u")#
+	    y <- str_replace_all(y, "à","a")#
+	    y <- str_replace_all(y, "è","e")#
+	    y <- str_replace_all(y, "ì","i")#
+	    y <- str_replace_all(y, "ò","o")#
+	    y <- str_replace_all(y, "ù","u")#
+	    y <- str_replace_all(y, "â","a")#
+	    y <- str_replace_all(y, "ê","e")     #
+	    y <- str_replace_all(y, "î","i")     #
+	    y <- str_replace_all(y, "ô","o")     #
+	    y <- str_replace_all(y, "û","u")                 #
+	    y <- str_replace_all(y, "ñ","n")#
+	    y <- str_replace(y, "[0-9]", "")#
+        z <- wordStem( #
+            str_split(y," +")[[1]], #
+            language="spanish")#
+        paste(z, collapse=" ")#
+        })#
+#
+    corp3 <- convert_UTF_8(corp2, sub="")#
+#
+	print(sum(corp3[ !(Encoding(corp3) == "UTF-8")]>0))#
+	#
+    dtm <- DocumentTermMatrix(Corpus(VectorSource(unclass(corp3))),#
+        control = list(weighting = weightTf, tolower = FALSE, stemming = FALSE, #
+        minDocFreq = 1, removePunctuation = TRUE))#
+}#
+#
+dtm.b <- miCorpus(comentarios)#
+dtm.3 <- miCorpus(comentarios.3)#
+#
+long.b <- nchar(as.character(coment.b$Verbatim))#
+long.3 <- nchar(as.character(coment.3$Verbatim))#
+base.0 <- dtm.b[ , apply(dtm.b, 2, sum) > 1]#
+base <- cbind(as.matrix(base.0), #
+    prioridad = as.numeric(as.character(coment.b$Prioridad)), #
+    longitud = long.b)#
+predecir <- cbind(as.matrix(dtm.3), #
+    prioridad = as.numeric(as.character(coment.3$Prioridad)), #
+    longitud = long.3)#
+save(base, file = "base.Rdata")#
+save(predecir, file = "predecir.Rdata")
+-	24	436	4111	548	203	1532	368	709	1903Amenazante	0	3165	1634	536	518	937	145	649	765Demandante	4	412	8040	95	193	984	2070	1569	2153Dudoso	20	3170	13581	2948	1057	2940	1756	2754	8826Exigente	0	255	236	1334	522	106	10	148	948Quejoso	0	583	1835	118	1073	171	639	41	248Solicitante	7	627	23848	6294	370	2537	926	1729	2719
+getwd()
+setwd("/User/cid/Documentos/ruby")
+setwd("/User/cid/cid/Documentos/ruby")
+ls()
+cmd(
+)
+command(ls)
+system(ls)
+system("ls")
+a <- system("ls")
+a
+library(L15LUtils)
+??L15LUtils
+perfiles <-#
+function(contingencia, tipo=0){ #0 perfiles dobles, 1 perfiles renglon, 2 perfiles columna#
+	#
+	if(tipo %in% c(0,1,2))#
+	{#
+	#
+		if (tipo==0)#
+		{#
+			atr_promedio <- prop.table(margin.table(contingencia, margin = 1))#
+			tabla_prop <- prop.table(contingencia, margin = 2)#
+			perfiles <- t(scale(t(tabla_prop), center = FALSE, #
+			scale = atr_promedio))#
+			#write.table(round(100*perfiles_col), sep = ",")#
+			res <- round(100*perfiles)#
+		}#
+  		else#
+  		{#
+  		#
+  				if(tipo==1)#
+  				{#
+  					n <- nrow(contingencia)#
+  				}#
+  				else#
+  				{#
+  					n <- ncol(contingencia)#
+  				}#
+  				atr_promedio <- (margin.table(contingencia, margin = tipo)/n)#
+  				perfiles <- (scale(contingencia,center = FALSE, #
+  					scale = atr_promedio))#
+  				#write.table(round(100*perfiles_col), sep = ",")#
+  				res <- round(100*perfiles)#
+  				#
+  		}#
+#
+	}#
+	else#
+	{#
+		print("ERROR. El tipo debe ser 0,1 ó 2.")#
+		res="ERROR"#
+	}#
+	res#
+}
+matrix(rnorm(15),nrow=3)
+matrix(rnorm(15, 15),nrow=3)
+base <- matrix(rnorm(15, 15),nrow=3)
+perfiles(base)
+a <- perfiles(base)
+a
+class(a)
+L15LUtils::perfiles(base)
+a <- perfiles(base,1)
+a <- perfiles(base,tipo=1)
+a <- perfiles(base,tipo=2)
+a
+L15LUtils::perfilesColumna(base)
+debug(perfiles)
+perfiles(base,2)
+tipo
+n
+n
+atr_promedio
+res
+base
+atr_promedio(margin.table(contingencia,margin=tipo)/ncol(contingencia))
+margin.table(contingencia,margin=tipo)/ncol(contingencia))
+margin.table(contingencia,margin=tipo)/ncol(contingencia)
+c
+perfiles <-#
+function(contingencia, tipo=0){ #0 perfiles dobles, 1 perfiles renglon, 2 perfiles columna#
+	#
+	if(tipo %in% c(0,1,2))#
+	{#
+	#
+		if (tipo==0)#
+		{#
+			atr_promedio <- prop.table(margin.table(contingencia, margin = 1))#
+			tabla_prop <- prop.table(contingencia, margin = 2)#
+			perfiles <- t(scale(t(tabla_prop), center = FALSE, #
+			scale = atr_promedio))#
+			#write.table(round(100*perfiles_col), sep = ",")#
+			res <- round(100*perfiles)#
+		}#
+  		else#
+  		{#
+  		#
+  				if(tipo==1)#
+  				{#
+  					n <- nrow(contingencia)#
+					contingencia <- t(contingencia)#
+  				}#
+  				else#
+  				{#
+  					n <- ncol(contingencia)#
+  				}#
+  				atr_promedio <- (margin.table(contingencia, margin = tipo)/n)#
+  				perfiles <- (scale(contingencia,center = FALSE, #
+  					scale = atr_promedio))#
+  				#write.table(round(100*perfiles_col), sep = ",")#
+  				res <- round(100*perfiles)#
+  				#
+  		}#
+#
+	}#
+	else#
+	{#
+		print("ERROR. El tipo debe ser 0,1 ó 2.")#
+		res="ERROR"#
+	}#
+	res#
+}
+perfiles(base,2)
+perfiles(base,1)
+perfiles <-#
+function(contingencia, tipo=0){ #0 perfiles dobles, 1 perfiles renglon, 2 perfiles columna#
+	#
+	if(tipo %in% c(0,1,2))#
+	{#
+	#
+		if (tipo==0)#
+		{#
+			atr_promedio <- prop.table(margin.table(contingencia, margin = 1))#
+			tabla_prop <- prop.table(contingencia, margin = 2)#
+			perfiles <- t(scale(t(tabla_prop), center = FALSE, #
+			scale = atr_promedio))#
+			#write.table(round(100*perfiles_col), sep = ",")#
+			res <- round(100*perfiles)#
+		}#
+  		else#
+  		{#
+  		#
+  				if(tipo==1)#
+  				{#
+  					n <- ncol(contingencia)#
+					contingencia <- t(contingencia)#
+  				}#
+  				else#
+  				{#
+  					n <- nrow(contingencia)#
+  				}#
+  				atr_promedio <- (margin.table(contingencia, margin = tipo)/n)#
+  				perfiles <- (scale(contingencia,center = FALSE, #
+  					scale = atr_promedio))#
+  				#write.table(round(100*perfiles_col), sep = ",")#
+  				res <- round(100*perfiles)#
+  				#
+  		}#
+#
+	}#
+	else#
+	{#
+		print("ERROR. El tipo debe ser 0,1 ó 2.")#
+		res="ERROR"#
+	}#
+	res#
+}
+perfiles(base,2)
+L15LUtils::perfilesColumna(base)
+perfiles(base,1)
+class(base)
+base
+t(base)
+xx <- t(base)
+xx
+contingencia <- t(base)
+contingencia
+tipo=1
+setwd('/Users/cid/work/rb1.1/R')
+  					n <- ncol(contingencia)
+n
+setwd('/Users/cid/work/rb1.1/R')
+  				atr_promedio <- (margin.table(contingencia, margin = tipo)/n)#
+  				perfiles <- (scale(contingencia,center = FALSE, #
+  					scale = atr_promedio))
+setwd('/Users/cid/work/rb1.1/R')
+  				atr_promedio <- (margin.table(contingencia, margin = tipo)/n)
+atr_promedio
+base
+contingencia
+  				perfiles <- (scale(base,center = FALSE, #
+  					scale = atr_promedio))
+perfiles
+setwd('/Users/cid/work/rb1.1/R')
+perfiles <-#
+function(contingencia, tipo=0){ #0 perfiles dobles, 1 perfiles renglon, 2 perfiles columna#
+	#
+	if(tipo %in% c(0,1,2))#
+	{#
+	#
+		if (tipo==0)#
+		{#
+			atr_promedio <- prop.table(margin.table(contingencia, margin = 1))#
+			tabla_prop <- prop.table(contingencia, margin = 2)#
+			perfiles <- t(scale(t(tabla_prop), center = FALSE, #
+			scale = atr_promedio))#
+			#write.table(round(100*perfiles_col), sep = ",")#
+			res <- round(100*perfiles)#
+		}#
+  		else#
+  		{#
+  		#
+  				if(tipo==1)#
+  				{#
+  					n <- ncol(contingencia)#
+					cont.2 <- t(contingencia)#
+  				}#
+  				else#
+  				{#
+  					n <- nrow(contingencia)#
+					cont.2 <- contingencia#
+  				}#
+  				atr_promedio <- (margin.table(contingencia, margin = tipo)/n)#
+				#
+  				perfiles <- (scale(cont.2,center = FALSE, #
+  					scale = atr_promedio))#
+  				#write.table(round(100*perfiles_col), sep = ",")#
+  				res <- round(100*perfiles)#
+  		}#
+#
+	}#
+	else#
+	{#
+		print("ERROR. El tipo debe ser 0,1 ó 2.")#
+		res="ERROR"#
+	}#
+	res#
+}
+perfiles(base,1)
+perfiles(base,2)
+setwd('/Users/cid/work/rb1.1/R')
+perfiles <-#
+function(contingencia, tipo=0){ #0 perfiles dobles, 1 perfiles renglon, 2 perfiles columna#
+	#
+	if(tipo %in% c(0,1,2))#
+	{#
+	#
+		if (tipo==0)#
+		{#
+			atr_promedio <- prop.table(margin.table(contingencia, margin = 1))#
+			tabla_prop <- prop.table(contingencia, margin = 2)#
+			perfiles <- t(scale(t(tabla_prop), center = FALSE, #
+			scale = atr_promedio))#
+			#write.table(round(100*perfiles_col), sep = ",")#
+			res <- round(100*perfiles)#
+		}#
+  		else#
+  		{#
+  		#
+  				if(tipo==1)#
+  				{#
+  					n <- ncol(contingencia)#
+					cont.2 <- t(contingencia)#
+  				}#
+  				else#
+  				{#
+  					n <- nrow(contingencia)#
+					cont.2 <- contingencia#
+  				}#
+  				atr_promedio <- (margin.table(contingencia, margin = tipo)/n)#
+				#
+  				perfiles <- (scale(cont.2,center = FALSE, #
+  					scale = atr_promedio))#
+  				#write.table(round(100*perfiles_col), sep = ",")#
+  				res <- round(100*perfiles)#
+				if(tipo==1)#
+				{#
+					res=t(res)#
+				}#
+  		}#
+#
+	}#
+	else#
+	{#
+		print("ERROR. El tipo debe ser 0,1 ó 2.")#
+		res="ERROR"#
+	}#
+	res#
+}
+perfiles(base)
+perfiles(base,0)
+perfiles(base,1)
+perfiles(base,2)
+perfiles(base,5)
+setwd('/Users/cid/work/rb1.1/R')
+perfiles <-#
+function(contingencia, tipo='d'){ #d perfiles dobles, r perfiles renglon, c perfiles columna#
+	#
+	if(tipo %in% c('c','d','r'))#
+	{#
+	#
+		if (tipo=='d')#
+		{#
+			atr_promedio <- prop.table(margin.table(contingencia, margin = 1))#
+			tabla_prop <- prop.table(contingencia, margin = 2)#
+			perfiles <- t(scale(t(tabla_prop), center = FALSE, #
+			scale = atr_promedio))#
+			#write.table(round(100*perfiles_col), sep = ",")#
+			res <- round(100*perfiles)#
+		}#
+  		else#
+  		{#
+  		#
+  				if(tipo=='r')#
+  				{#
+  					n <- ncol(contingencia)#
+					cont.2 <- t(contingencia)#
+					margen=1#
+  				}#
+  				else#
+  				{#
+  					n <- nrow(contingencia)#
+					cont.2 <- contingencia#
+					margen=2#
+  				}#
+  				atr_promedio <- (margin.table(contingencia, margin = margen)/n)#
+				#
+  				perfiles <- (scale(cont.2,center = FALSE, #
+  					scale = atr_promedio))#
+  				#write.table(round(100*perfiles_col), sep = ",")#
+  				res <- round(100*perfiles)#
+				if(tipo=='r')#
+				{#
+					res=t(res)#
+				}#
+  		}#
+#
+	}#
+	else#
+	{#
+		print("ERROR. El tipo debe ser 0,1 ó 2.")#
+		res="ERROR"#
+	}#
+	res#
+}
+perfiles(base)
+perfiles(base,'d')
+perfiles(base,'r')
+perfiles(base,'c')
+perfiles(base,4)

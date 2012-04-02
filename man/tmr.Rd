@@ -4,7 +4,7 @@
 \title{ Tablas de contingencia para preguntas de respuesta multiple
 }
 \description{
-	Esta funcion toma como entrada una base de datos, indices de preguntas, y un tamano de base (opcional). Realiza cruzes de tablas a traves de sapply, y entrega los valores como porcentajes por columna.
+	Esta funcion toma como entrada una base de datos, indices de preguntas, y un tamano de base (opcional). Realiza cruces de tablas a traves de sapply, y entrega los valores como porcentajes por columna.
 }
 \usage{
 tmr(datos, ind, base = -1)

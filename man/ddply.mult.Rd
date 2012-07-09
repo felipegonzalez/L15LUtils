@@ -5,7 +5,7 @@
 	ddply para respuesta múltiple}
 \description{
 Produce tablas resumen de preguntas de respuesta múltiple, cortando por
-distintas dimensiones y filtrando según variables seleccionadas.
+distintas dimensiones y filtrando según variables seleccionadas.}
 \usage{
 ddply.mult(.data, .variables, .grupo = NULL, .patron = NULL, 
       .progress = 'none', .drop = FALSE, filtro.var = NULL, filtro.vals = NULL)

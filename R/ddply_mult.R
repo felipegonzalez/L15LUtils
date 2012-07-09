@@ -5,12 +5,12 @@ ddply.mult <- function(.data, .variables, .grupo = NULL, .patron = NULL,
    
    if(is.null(.grupo)){
       if(is.null(.patron)){
-         stop('Ningún grupo de respuesta múltiple. Especificar .grupo o .patron')
+         stop('Ningun grupo de respuesta multiple. Especificar .grupo o .patron')
       } 
       else{
          .grupo <- names(.data)[grep(.patron, names(.data), perl=TRUE)]
          if(length(.grupo)==0){
-            stop('Ninguna coincidencia con patrón.')
+            stop('Ninguna coincidencia con patron.')
          }
       }
    }

@@ -5,7 +5,7 @@
 	ddply para respuesta múltiple}
 \description{
 Produce tablas resumen de preguntas de respuesta múltiple, cortando por
-distintas dimensiones y filtrando según variables seleccionadas.
+distintas dimensiones y filtrando según variables seleccionadas.}
 \usage{
 ddply.mult(.data, .variables, .grupo = NULL, .patron = NULL, 
       .progress = 'none', .drop = FALSE, filtro.var = NULL, filtro.vals = NULL)
@@ -34,17 +34,14 @@ ddply.mult(.data, .variables, .grupo = NULL, .patron = NULL,
   \item{\dots}{
 %%     ~~Describe \code{\dots} here~~
 }
-}
+
 \details{
 Hay que tener cuidado con valores faltantes: este código, como está ahora,
 excluye todos los faltantes del cálculo, aunque se contabilizan el base para
-calcular porcentajes.
-}
+calcular porcentajes.}
 \value{ Data frame con porcentajes y sus errores estándar calculados bajo MASSR.
 Incluye tres atributos adicionales: filtro.activo, y columnas.nom (nombres de columnas
-de respuesta múltiple).
-
-}
+de respuesta múltiple).}
 \references{
 }
 \author{
@@ -60,9 +57,7 @@ Ver también paquete plyr}
 }
 \examples{
 
-
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+

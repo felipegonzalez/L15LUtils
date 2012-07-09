@@ -8,8 +8,7 @@ Produce tablas resumen de preguntas de respuesta múltiple, cortando por
 distintas dimensiones y filtrando según variables seleccionadas.}
 \usage{
 ddply.mult(.data, .variables, .grupo = NULL, .patron = NULL, 
-      .progress = 'none', .drop = FALSE, filtro.var = NULL, filtro.vals = NULL)
-}
+      .progress = 'none', .drop = FALSE, filtro.var = NULL, filtro.vals = NULL)}
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{.data}{
@@ -29,12 +28,11 @@ ddply.mult(.data, .variables, .grupo = NULL, .patron = NULL,
 }
   \item{filtro.vals}{
   valores incluídos en el filtro.
-%%     ~~Describe \code{ind} here~~
 }
   \item{\dots}{
 %%     ~~Describe \code{\dots} here~~
 }
-
+}
 \details{
 Hay que tener cuidado con valores faltantes: este código, como está ahora,
 excluye todos los faltantes del cálculo, aunque se contabilizan el base para
@@ -43,6 +41,7 @@ calcular porcentajes.}
 Incluye tres atributos adicionales: filtro.activo, y columnas.nom (nombres de columnas
 de respuesta múltiple).}
 \references{
+Refs
 }
 \author{
 Felipe González}
@@ -54,9 +53,7 @@ Felipe González}
 
 \seealso{
 Ver también paquete plyr}
-}
 \examples{
-
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -2,10 +2,10 @@
 \alias{ddply.mult}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-	ddply para respuesta múltiple}
+	ddply para respuesta m\'ultiple}
 \description{
-Produce tablas resumen de preguntas de respuesta múltiple, cortando por
-distintas dimensiones y filtrando según variables seleccionadas.}
+Produce tablas resumen de preguntas de respuesta m\'ultiple, cortando por
+distintas dimensiones y filtrando seg\'un variables seleccionadas.}
 \usage{
 ddply.mult(.data, .variables, .grupo = NULL, .patron = NULL, 
       .progress = 'none', .drop = FALSE, filtro.var = NULL, filtro.vals = NULL)}
@@ -18,33 +18,33 @@ ddply.mult(.data, .variables, .grupo = NULL, .patron = NULL,
   Dimensiones de corte (ver ddply)
   }
   \item{.grupo}{
-  vector con identificadores de las columnas que componen la respuesta múltiple
+  vector con identificadores de las columnas que componen la respuesta m\'ultiple
 }
   \item{.patron}{
-  expresión regular para determinar las columnas que componen la respuesta múltiple.
+  expresi\'on regular para determinar las columnas que componen la respuesta m\'ultiple.
 }
   \item{filtro.var}{
   nombre de columna de .data con la que se filtra
 }
   \item{filtro.vals}{
-  valores incluídos en el filtro.
+  valores incluidos en el filtro.
 }
   \item{\dots}{
 %%     ~~Describe \code{\dots} here~~
 }
 }
 \details{
-Hay que tener cuidado con valores faltantes: este código, como está ahora,
-excluye todos los faltantes del cálculo, aunque se contabilizan el base para
+Hay que tener cuidado con valores faltantes: este c\'odigo, como est\'a ahora,
+excluye todos los faltantes del c\'alculo, aunque se contabilizan el base para
 calcular porcentajes.}
-\value{ Data frame con porcentajes y sus errores estándar calculados bajo MASSR.
+\value{ Data frame con porcentajes y sus errores est\'andar calculados bajo MASSR.
 Incluye tres atributos adicionales: filtro.activo, y columnas.nom (nombres de columnas
-de respuesta múltiple).}
+de respuesta m\'ultiple).}
 \references{
 Refs
 }
 \author{
-Felipe González}
+Felipe Gonz\'alez}
 \note{
 %%  ~~further notes~~
 }
@@ -52,7 +52,7 @@ Felipe González}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-Ver también paquete plyr}
+Ver tambi\'en paquete plyr}
 \examples{
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

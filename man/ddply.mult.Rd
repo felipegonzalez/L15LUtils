@@ -2,10 +2,10 @@
 \alias{ddply.mult}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-	ddply para respuesta m\'ultiple}
+  ddply para respuesta multiple}
 \description{
-Produce tablas resumen de preguntas de respuesta m\'ultiple, cortando por
-distintas dimensiones y filtrando seg\'un variables seleccionadas.}
+Produce tablas resumen de preguntas de respuesta multiple, cortando por
+distintas dimensiones y filtrando segun variables seleccionadas.}
 \usage{
 ddply.mult(.data, .variables, .grupo = NULL, .patron = NULL, 
       .progress = 'none', .drop = FALSE, filtro.var = NULL, filtro.vals = NULL)}
@@ -18,10 +18,10 @@ ddply.mult(.data, .variables, .grupo = NULL, .patron = NULL,
   Dimensiones de corte (ver ddply)
   }
   \item{.grupo}{
-  vector con identificadores de las columnas que componen la respuesta m\'ultiple
+  vector con identificadores de las columnas que componen la respuesta multiple
 }
   \item{.patron}{
-  expresi\'on regular para determinar las columnas que componen la respuesta m\'ultiple.
+  expresion regular para determinar las columnas que componen la respuesta multiple.
 }
   \item{filtro.var}{
   nombre de columna de .data con la que se filtra
@@ -34,17 +34,17 @@ ddply.mult(.data, .variables, .grupo = NULL, .patron = NULL,
 }
 }
 \details{
-Hay que tener cuidado con valores faltantes: este c\'odigo, como est\'a ahora,
-excluye todos los faltantes del c\'alculo, aunque se contabilizan el base para
+Hay que tener cuidado con valores faltantes: este codigo, como esta ahora,
+excluye todos los faltantes del calculo, aunque se contabilizan el base para
 calcular porcentajes.}
-\value{ Data frame con porcentajes y sus errores est\'andar calculados bajo MASSR.
+\value{ Data frame con porcentajes y sus errores estandar calculados bajo MASSR.
 Incluye tres atributos adicionales: filtro.activo, y columnas.nom (nombres de columnas
-de respuesta m\'ultiple).}
+de respuesta multiple).}
 \references{
 Refs
 }
 \author{
-Felipe Gonz\'alez}
+Felipe Gonzalez}
 \note{
 %%  ~~further notes~~
 }
@@ -52,9 +52,10 @@ Felipe Gonz\'alez}
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-Ver tambi\'en paquete plyr}
-\examples{
-}
+Ver tambien paquete plyr}
+%\examples{
+%}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
+
 

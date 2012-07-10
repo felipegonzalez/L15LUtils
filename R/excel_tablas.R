@@ -18,6 +18,7 @@ excel.tablas <- function(nombre.archivo='tablas.xlsx', lista.tablas,
    
     renglon <- 8
 	for(i in 1:length(lista.tablas)){
+		cat('Tabla',i,'de', length(lista.tablas),'\r')
 		tab.out <- lista.tablas[[i]]
 		var.otras <- attr(tab.out, 'variables.eje')
 		nombre.preg <- attr(tab.out, 'nombre.preg')

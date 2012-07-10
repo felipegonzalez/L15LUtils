@@ -1,7 +1,7 @@
 
 excel.tablas <- function(nombre.archivo='tablas.xlsx', lista.tablas, 
 		proyecto='Un ejemplo',nombre.hoja='Tablas (%)'){
-	tempate.file <- system.file('data/template_tablas.xlsx', package = 'L15LUtils')
+	template.file <- system.file('data/template_tablas.xlsx', package = 'L15LUtils')
 	wb <- loadWorkbook ( template.file , create = FALSE )
 	formato.gris <- getCellStyle(wb,'Renglonbase')
 	formato.encabezado <- getCellStyle(wb,'Encabez. 1')

@@ -18,7 +18,7 @@ ddply.mult <- function(.data, .variables, .grupo = NULL, .patron = NULL,
    	if(!is.null(filtro.var)){
    		# filtro de respuesta múltiple
 		#filtro.1 <- .data[ , filtro.var] %in% filtro.vals
-		filtro.1 <- apply(.datos[,filtro.var], 1, function(x){
+		filtro.1 <- apply(.data[,filtro.var], 1, function(x){
 			Reduce('|',filtro.vals %in% x)
 			})
 		.data <- .data[filtro.1, ]

@@ -3,7 +3,7 @@ tablas.banner <- function(.data, var.otras, vars.col, .patron, nombre.preg,filtr
 	salida.list <- list()
 	out.list <- list()
 	for(i in 1:length(vars.col)){
-		salida.list[[i]] <- ddply.mult(datos, c(var.otras,vars.col[i]), .patron = .patron,
+		salida.list[[i]] <- ddply.mult(.data, c(var.otras,vars.col[i]), .patron = .patron,
 			filtro.var=filtro.var, filtro.vals=filtro.vals)
 		out.list[[i]] <- tabla.salida(salida.list[[i]],
 				vars.col[[i]], .patron, nombre.preg=nombre.preg)

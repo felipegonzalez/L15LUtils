@@ -1,1 +1,1 @@
-export(difsig,ordenaNSNC,tmr,tmrFiltNSNC,tmrNinguna,tmrNSNC,tmrRaw,tmrUnic,perfiles,perfilesAditivos,perfilesColumna,perfilesRenglon,simpleCap,numeroResp,biplotCustom,plotCaRota,tabla,ddply.mult,excel.tablas,tabla.salida,tablas.banner, sims_logito_2)
+export(difsig,ordenaNSNC,tmr,tmrFiltNSNC,tmrNinguna,tmrNSNC,tmrRaw,tmrUnic,perfiles,perfilesAditivos,perfilesColumna,perfilesRenglon,simpleCap,numeroResp,biplotCustom,plotCaRota,tabla,ddply.mult,excel.tablas,tabla.salida,tablas.banner, sims.logito.2)
